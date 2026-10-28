@@ -14,7 +14,8 @@ RUN ln -s bun /usr/local/bin/bunx \
     && ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
     && ln -s ../lib/node_modules/corepack/dist/corepack.js /usr/local/bin/corepack
-RUN curl -L -o /usr/local/bin/php-cs-fixer https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.95.25/php-cs-fixer.phar \
+RUN curl -fsSL -o /usr/local/bin/php-cs-fixer https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.95.25/php-cs-fixer.phar \
+    && echo "80cad475fc5112fdbfab8bd66e51665ed78c1b849b918dab81fb63b7a7003b41  /usr/local/bin/php-cs-fixer" | sha256sum -c - \
     && chmod +x /usr/local/bin/php-cs-fixer
 WORKDIR /app
 

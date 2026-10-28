@@ -37,8 +37,11 @@ run_csfixer() {
   else
     if [[ ! -f "$CSFIXER" ]]; then
       mkdir -p "${ROOT}/tools"
-      curl -fsSL -o "$CSFIXER" \
+      # Keep version and sha256 in sync with docker/Dockerfile.
+      curl -fsSL -o "$CSFIXER.tmp" \
         https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.95.25/php-cs-fixer.phar
+      echo "80cad475fc5112fdbfab8bd66e51665ed78c1b849b918dab81fb63b7a7003b41  $CSFIXER.tmp" | sha256sum -c -
+      mv "$CSFIXER.tmp" "$CSFIXER"
     fi
     php "$CSFIXER" "${extra[@]}"
   fi
